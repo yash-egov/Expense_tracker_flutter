@@ -198,11 +198,44 @@ class _HomeState extends State<Home> {
                     : ListView.builder(
                         itemCount: state.filteredItems.length,
                         itemBuilder: (context, index) {
-                          return MyCard(
-                              state.allitems[index].getItemName(),
-                              state.allitems[index].getItemPrice(),
-                              deleteItem,
-                              index);
+                          return Container(
+                            margin: EdgeInsets.only(top: 20),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                              children: [
+                                Text(
+                                  '${state.filteredItems[index].getItemName()}',
+                                  style: TextStyle(
+                                      fontSize: 30,
+                                      fontWeight: FontWeight.w500),
+                                ),
+                                Text(
+                                  '${state.filteredItems[index].getItemPrice()}',
+                                  style: TextStyle(
+                                      fontSize: 30,
+                                      fontWeight: FontWeight.w500),
+                                ),
+                                ElevatedButton(
+                                    onPressed: () {}, child: Icon(Icons.edit)),
+                                ElevatedButton(
+                                    onPressed: () => {
+                                          context.read<ExpenseBloc>().add(
+                                              addExpenseEvent(-state
+                                                  .filteredItems[index]
+                                                  .getItemPrice()!)),
+                                          context.read<BalanceBloc>().add(
+                                              UpdateBalanceEvent(-state
+                                                  .filteredItems[index]
+                                                  .getItemPrice()!)),
+                                          context
+                                              .read<ItemsBloc>()
+                                              .add(removeItemEvent(index!)),
+                                          deleteItem(index)
+                                        },
+                                    child: Icon(Icons.delete)),
+                              ],
+                            ),
+                          );
                         },
                       ),
               );
