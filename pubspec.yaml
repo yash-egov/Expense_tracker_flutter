@@ -33,6 +33,7 @@ dependencies:
   flutter_month_picker: ^0.0.2
   flutter_bloc:
   equatable:
+  # easy_search_bar:
 
 
   # The following adds the Cupertino Icons font to your application.

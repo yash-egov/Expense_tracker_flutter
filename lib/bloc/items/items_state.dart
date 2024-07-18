@@ -2,12 +2,12 @@ part of 'items_bloc.dart';
 
 @immutable
 class ItemsState extends Equatable {
-  final List<Item> allitems;
-  const ItemsState({required this.allitems});
+  final List<Item> allitems, filteredItems;
+  const ItemsState(this.allitems, this.filteredItems);
   @override
-  List<Object> get props => [];
+  List<Object> get props => [allitems, filteredItems];
 }
 
 final class ItemsInitial extends ItemsState {
-  ItemsInitial() : super(allitems: []);
+  ItemsInitial() : super([], []);
 }

@@ -9,6 +9,11 @@ class addItemEvent extends ItemsEvent {
 }
 
 class removeItemEvent extends ItemsEvent {
-  int index;
+  final int index;
   removeItemEvent(this.index) : super();
+}
+
+class filterItemsEvent extends ItemsEvent {
+  final List<Item> newitems;
+  filterItemsEvent(this.newitems) : super();
 }

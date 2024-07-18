@@ -13,7 +13,7 @@ class ItemsBloc extends Bloc<ItemsEvent, ItemsState> {
       print(event.curr!.getItemName());
       state.allitems.add(event.curr!);
       print(state.allitems);
-      emit(ItemsState(allitems: state.allitems));
+      emit(ItemsState(state.allitems, state.allitems));
     });
 
     on<removeItemEvent>((event, emit) {
@@ -21,7 +21,15 @@ class ItemsBloc extends Bloc<ItemsEvent, ItemsState> {
 
       state.allitems.removeAt(event.index);
       print(state.allitems);
-      emit(ItemsState(allitems: state.allitems));
+      emit(ItemsState(state.allitems, state.allitems));
+    });
+
+    on<filterItemsEvent>((event, emit) {
+      print("Inside filter event");
+      // state.allitems.removeWhere(test)
+      print(state.allitems.length);
+      print(event.newitems.length);
+      emit(ItemsState(state.allitems, event.newitems));
     });
   }
 }
