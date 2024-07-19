@@ -1,5 +1,8 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 
+import 'package:expense_tracker/Me/about.dart';
+import 'package:expense_tracker/Me/report.dart';
+import 'package:expense_tracker/Me/settings.dart';
 import 'package:flutter/material.dart';
 
 class ProfilePage extends StatefulWidget {
@@ -10,9 +13,11 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: _scaffoldKey,
       appBar: AppBar(
         title: Text("User Profile"),
         backgroundColor: Colors.amber,
@@ -48,7 +53,6 @@ class _ProfilePageState extends State<ProfilePage> {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             ElevatedButton(
-                onPressed: () {},
                 child: Container(
                   height: 90,
                   child: Row(
@@ -58,9 +62,22 @@ class _ProfilePageState extends State<ProfilePage> {
                       Icon(Icons.info),
                     ],
                   ),
-                )),
+                ),
+                onPressed: () {
+                  _scaffoldKey.currentState?.showBottomSheet(
+                    (BuildContext context) {
+                      return About();
+                    },
+                  );
+                }),
             ElevatedButton(
-                onPressed: () {},
+                onPressed: () {
+                  _scaffoldKey.currentState?.showBottomSheet(
+                    (BuildContext context) {
+                      return About();
+                    },
+                  );
+                },
                 child: Container(
                   height: 90,
                   child: Row(
@@ -72,7 +89,13 @@ class _ProfilePageState extends State<ProfilePage> {
                   ),
                 )),
             ElevatedButton(
-                onPressed: () {},
+                onPressed: () {
+                  _scaffoldKey.currentState?.showBottomSheet(
+                    (BuildContext context) {
+                      return Settings();
+                    },
+                  );
+                },
                 child: Container(
                   height: 90,
                   child: Row(
@@ -84,7 +107,13 @@ class _ProfilePageState extends State<ProfilePage> {
                   ),
                 )),
             ElevatedButton(
-                onPressed: () {},
+                onPressed: () {
+                  _scaffoldKey.currentState?.showBottomSheet(
+                    (BuildContext context) {
+                      return Report();
+                    },
+                  );
+                },
                 child: Container(
                   height: 90,
                   child: Row(

@@ -82,12 +82,6 @@ class _FormScreenState extends State<FormScreen> {
               SizedBox(
                 height: 20,
               ),
-              // ElevatedButton(
-              //   onPressed: () {
-              //     Navigator.pop(context, data);
-              //   },
-              //   child: Text('Submit All items'),
-              // ),
             ],
           ),
         ),
