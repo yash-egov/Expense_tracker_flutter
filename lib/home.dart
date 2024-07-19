@@ -91,7 +91,8 @@ class _HomeState extends State<Home> {
         return Scaffold(
           appBar: AppBar(
             leading: Container(
-              width: 100,
+              margin: EdgeInsets.only(left: 30),
+              width: 900,
               child: TextField(
                 controller: _searchController,
                 style: const TextStyle(color: Color.fromARGB(255, 2, 13, 128)),
@@ -125,14 +126,11 @@ class _HomeState extends State<Home> {
             centerTitle: true,
             actions: [
               IconButton(
-                  onPressed: () {
-                    final snackBar = SnackBar(
-                      content: Text("Comming Soon......"),
-                      duration: Duration(milliseconds: 50),
-                    );
-
-                    // Show the SnackBar using ScaffoldMessenger
-                    ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                  onPressed: () async {
+                    DateTime? datepicked = await showDatePicker(
+                        context: context,
+                        firstDate: DateTime(2023),
+                        lastDate: DateTime(2026));
                   },
                   icon: Icon(Icons.calendar_month_outlined))
             ],
@@ -220,40 +218,75 @@ class _HomeState extends State<Home> {
                         itemCount: state.filteredItems.length,
                         itemBuilder: (context, index) {
                           return Container(
-                            margin: EdgeInsets.only(top: 20),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            // margin: EdgeInsets.only(top: 20),
+                            child: Column(
                               children: [
-                                Text(
-                                  '${state.filteredItems[index].getItemName()}',
-                                  style: TextStyle(
-                                      fontSize: 30,
-                                      fontWeight: FontWeight.w500),
+                                (index == 0 ||
+                                        state.filteredItems[index - 1]
+                                                .getCreatedTime() !=
+                                            state.filteredItems[index]
+                                                .getCreatedTime())
+                                    ? Center(
+                                        child: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          children: [
+                                            Container(
+                                              width: MediaQuery.sizeOf(context)
+                                                  .width,
+                                              color: Color.fromARGB(
+                                                  255, 105, 83, 206),
+                                              child: Text(
+                                                '${state.filteredItems[index].getCreatedTime()}',
+                                                style: TextStyle(
+                                                  color: Color.fromARGB(
+                                                      255, 255, 255, 255),
+                                                  fontSize: 20,
+                                                  fontWeight: FontWeight.w900,
+                                                ),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      )
+                                    : Row(),
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceAround,
+                                  children: [
+                                    Text(
+                                      '${state.filteredItems[index].getItemName()}',
+                                      style: TextStyle(
+                                          fontSize: 30,
+                                          fontWeight: FontWeight.w500),
+                                    ),
+                                    Text(
+                                      '${state.filteredItems[index].getItemPrice()}',
+                                      style: TextStyle(
+                                          fontSize: 30,
+                                          fontWeight: FontWeight.w500),
+                                    ),
+                                    ElevatedButton(
+                                        onPressed: () {},
+                                        child: Icon(Icons.edit)),
+                                    ElevatedButton(
+                                        onPressed: () => {
+                                              context.read<ExpenseBloc>().add(
+                                                  addExpenseEvent(-state
+                                                      .filteredItems[index]
+                                                      .getItemPrice()!)),
+                                              context.read<BalanceBloc>().add(
+                                                  UpdateBalanceEvent(-state
+                                                      .filteredItems[index]
+                                                      .getItemPrice()!)),
+                                              context
+                                                  .read<ItemsBloc>()
+                                                  .add(removeItemEvent(index!)),
+                                              deleteItem(index)
+                                            },
+                                        child: Icon(Icons.delete)),
+                                  ],
                                 ),
-                                Text(
-                                  '${state.filteredItems[index].getItemPrice()}',
-                                  style: TextStyle(
-                                      fontSize: 30,
-                                      fontWeight: FontWeight.w500),
-                                ),
-                                ElevatedButton(
-                                    onPressed: () {}, child: Icon(Icons.edit)),
-                                ElevatedButton(
-                                    onPressed: () => {
-                                          context.read<ExpenseBloc>().add(
-                                              addExpenseEvent(-state
-                                                  .filteredItems[index]
-                                                  .getItemPrice()!)),
-                                          context.read<BalanceBloc>().add(
-                                              UpdateBalanceEvent(-state
-                                                  .filteredItems[index]
-                                                  .getItemPrice()!)),
-                                          context
-                                              .read<ItemsBloc>()
-                                              .add(removeItemEvent(index!)),
-                                          deleteItem(index)
-                                        },
-                                    child: Icon(Icons.delete)),
                               ],
                             ),
                           );
