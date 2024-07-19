@@ -1,4 +1,5 @@
 import 'package:expense_tracker/bloc/balance/balance_bloc.dart';
+import 'package:expense_tracker/bloc/earnings/earnings_bloc.dart';
 import 'package:expense_tracker/bloc/expense/expense_bloc.dart';
 import 'package:expense_tracker/bloc/items/items_bloc.dart';
 import 'package:expense_tracker/home.dart';
@@ -26,6 +27,9 @@ class MyApp extends StatelessWidget {
         ),
         BlocProvider(
           create: (context) => ExpenseBloc(),
+        ),
+        BlocProvider(
+          create: (context) => EarningsBloc(),
         )
       ],
       child: MaterialApp(

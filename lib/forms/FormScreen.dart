@@ -66,9 +66,9 @@ class _FormScreenState extends State<FormScreen> {
                     data.add(curr);
                     context.read<ItemsBloc>().add(addItemEvent(curr));
 
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(content: Text('Processing Data ${data.length}')),
-                    );
+                    // ScaffoldMessenger.of(context).showSnackBar(
+                    //   SnackBar(content: Text('Processing Data ${data.length}')),
+                    // );
                   }
                   context.read<ExpenseBloc>().add(addExpenseEvent(_itemPrice));
                   context

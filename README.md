@@ -14,3 +14,19 @@ A few resources to get you started if this is your first Flutter project:
 For help getting started with Flutter development, view the
 [online documentation](https://docs.flutter.dev/), which offers tutorials,
 samples, guidance on mobile development, and a full API reference.
+
+
+# WHAT CAN YOU FIND
+BLOC for State Management
+
+# Features and What I have Used
+
+# Me Page (Profile.dart)
+  - Circilar Avatar
+  - PreferredSize ( appbar > bottom)
+  - showBottomsheet :  cool
+               _scaffoldKey.currentState?.showBottomSheet(
+                    (BuildContext context) {
+                      return Settings();
+                    },
+                  );

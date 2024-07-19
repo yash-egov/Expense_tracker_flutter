@@ -10,7 +10,7 @@ part 'balance_state.dart';
 class BalanceBloc extends Bloc<BalanceEvent, BalanceState> {
   BalanceBloc() : super(BalanceInitial()) {
     on<UpdateBalanceEvent>((event, emit) {
-      emit(BalanceState(balanceValue: state.balanceValue - event.price));
+      emit(BalanceState(balanceValue: state.balanceValue + event.price));
     });
   }
 }

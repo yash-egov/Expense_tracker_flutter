@@ -1,10 +1,12 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 
-import 'package:expense_tracker/FormScreen.dart';
+import 'package:expense_tracker/forms/FormScreen.dart';
 import 'package:expense_tracker/bloc/balance/balance_bloc.dart';
+import 'package:expense_tracker/bloc/earnings/earnings_bloc.dart';
 import 'package:expense_tracker/bloc/expense/expense_bloc.dart';
 import 'package:expense_tracker/bloc/items/items_bloc.dart';
 import 'package:expense_tracker/custom_card.dart';
+import 'package:expense_tracker/forms/earning_form.dart';
 import 'package:expense_tracker/model/Item.dart';
 import 'package:expense_tracker/Me/profile.dart';
 import 'package:flutter/material.dart';
@@ -126,7 +128,7 @@ class _HomeState extends State<Home> {
                   onPressed: () {
                     final snackBar = SnackBar(
                       content: Text("Comming Soon......"),
-                      duration: Duration(seconds: 3),
+                      duration: Duration(milliseconds: 50),
                     );
 
                     // Show the SnackBar using ScaffoldMessenger
@@ -171,16 +173,35 @@ class _HomeState extends State<Home> {
                     ),
                     Column(
                       children: [
-                        Text('Income'),
-                        Text('0'),
+                        TextButton(onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => EarningForm()),
+                          );
+                        }, child: BlocBuilder<EarningsBloc, EarningsState>(
+                          builder: (context, state) {
+                            return Column(
+                              children: [
+                                Text('Earnings'),
+                                Text('${state.earning}'),
+                              ],
+                            );
+                          },
+                        ))
                       ],
                     ),
                     Column(
                       children: [
                         Text('Balance'),
-                        BlocBuilder<BalanceBloc, BalanceState>(
-                          builder: (context, state) {
-                            return Text('${state.balanceValue}');
+                        BlocBuilder<EarningsBloc, EarningsState>(
+                          builder: (context, state1) {
+                            return BlocBuilder<BalanceBloc, BalanceState>(
+                              builder: (context, state) {
+                                return Text(
+                                    '${state1.earning - state.balanceValue}');
+                              },
+                            );
                           },
                         ),
                       ],
@@ -254,7 +275,7 @@ class _HomeState extends State<Home> {
                     onPressed: () {
                       final snackBar = SnackBar(
                         content: Text("Comming Soon......"),
-                        duration: Duration(seconds: 3),
+                        duration: Duration(milliseconds: 50),
                       );
 
                       // Show the SnackBar using ScaffoldMessenger
@@ -269,7 +290,7 @@ class _HomeState extends State<Home> {
                   onPressed: () {
                     final snackBar = SnackBar(
                       content: Text("Comming Soon......"),
-                      duration: Duration(seconds: 3),
+                      duration: Duration(milliseconds: 50),
                     );
 
                     // Show the SnackBar using ScaffoldMessenger
@@ -302,7 +323,7 @@ class _HomeState extends State<Home> {
                     onPressed: () {
                       final snackBar = SnackBar(
                         content: Text("Comming Soon......"),
-                        duration: Duration(seconds: 3),
+                        duration: Duration(milliseconds: 50),
                       );
 
                       // Show the SnackBar using ScaffoldMessenger
